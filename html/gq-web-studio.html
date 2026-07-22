@@ -14,10 +14,49 @@
   <meta property="og:url" content="https://geremiquashie.com/html/gq-web-studio.html">
   <meta property="og:image" content="https://geremiquashie.com/images/projects/gq-web-studio/website.webp">
 
-  <link rel="icon" type="image/webp" href="../images/logo/favicon.webp">
+  <link rel="icon" type="image/webp" href="../images/logo/favicon-light.webp">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;display=swap" rel="stylesheet">
   <link rel="stylesheet" href="../css/style.css">
   <script src="../js/script.js" defer></script>
 </head>
 <body>
+  <header class="site-header" data-site-header>
+    <div class="site-header__inner">
+      <a class="site-header__logo-link" href="../index.html" aria-label="Geremi Quashie homepage">
+        <img class="site-header__logo" data-logo-spin src="../images/logo/favicon-light.webp" alt="Geremi Quashie logo" width="2000" height="2000" decoding="async" fetchpriority="high">
+      </a>
+
+      <nav class="site-header__nav" aria-label="Primary navigation">
+        <ul class="site-header__nav-list">
+          <li><a class="site-header__nav-link" href="../index.html">Home</a></li>
+          <li><a class="site-header__nav-link" href="about.html">About</a></li>
+          <li><a class="site-header__nav-link is-active" href="personal.html" aria-current="page">Projects</a></li>
+          <li><a class="site-header__nav-link" href="contact.html">Contact</a></li>
+        </ul>
+      </nav>
+
+      <a class="site-header__cta" href="contact.html">Contact Me</a>
+
+      <button class="site-header__menu-toggle" type="button" aria-label="Open navigation menu" aria-controls="mobile-menu" aria-expanded="false" data-menu-toggle>
+        <span class="site-header__menu-line" aria-hidden="true"></span>
+        <span class="site-header__menu-line" aria-hidden="true"></span>
+        <span class="site-header__menu-line" aria-hidden="true"></span>
+      </button>
+    </div>
+
+    <div class="site-header__mobile-menu" id="mobile-menu" data-mobile-menu aria-hidden="true" inert>
+      <nav aria-label="Mobile navigation">
+        <ul class="site-header__mobile-nav-list">
+          <li><a class="site-header__mobile-nav-link" href="../index.html">Home</a></li>
+          <li><a class="site-header__mobile-nav-link" href="about.html">About</a></li>
+          <li><a class="site-header__mobile-nav-link is-active" href="personal.html" aria-current="page">Projects</a></li>
+          <li><a class="site-header__mobile-nav-link" href="contact.html">Contact</a></li>
+        </ul>
+      </nav>
+      <a class="site-header__mobile-cta" href="contact.html">Contact Me</a>
+    </div>
+  </header>
 </body>
 </html>
