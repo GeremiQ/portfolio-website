@@ -9,6 +9,7 @@
   const mobileMenu = header.querySelector("[data-mobile-menu]");
   const logos = document.querySelectorAll("[data-logo-spin]");
   const desktopQuery = window.matchMedia("(min-width: 841px)");
+  const prefersReducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)");
   let shouldSpinClockwise = true;
 
   const setScrolledState = () => {
@@ -47,8 +48,80 @@
     }
   };
 
+  const initializeSplitSection = ({
+    sectionSelector,
+    revealSelector,
+    visualSelector,
+    imageSelector,
+    tiltProperty,
+  }) => {
+    const section = document.querySelector(sectionSelector);
+
+    if (!section) {
+      return;
+    }
+
+    const revealElements = section.querySelectorAll(revealSelector);
+    const imageVisual = section.querySelector(visualSelector);
+    const image = section.querySelector(imageSelector);
+    let imageTiltDirection = -1;
+
+    if (imageVisual && image) {
+      imageVisual.addEventListener("mouseenter", () => {
+        if (prefersReducedMotion.matches) {
+          return;
+        }
+
+        image.style.setProperty(tiltProperty, `${imageTiltDirection * 1.5}deg`);
+        imageTiltDirection *= -1;
+      });
+    }
+
+    if (prefersReducedMotion.matches || !("IntersectionObserver" in window)) {
+      revealElements.forEach((element) => element.classList.add("is-visible"));
+      return;
+    }
+
+    section.classList.add("is-reveal-ready");
+
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (!entry.isIntersecting) {
+            return;
+          }
+
+          entry.target.classList.add("is-visible");
+          observer.unobserve(entry.target);
+        });
+      },
+      {
+        threshold: 0.15,
+        rootMargin: "0px 0px -10%",
+      }
+    );
+
+    revealElements.forEach((element) => observer.observe(element));
+  };
+
   setScrolledState();
   window.addEventListener("scroll", setScrolledState, { passive: true });
+
+  initializeSplitSection({
+    sectionSelector: "[data-home-about]",
+    revealSelector: "[data-about-reveal]",
+    visualSelector: ".home-about__visual",
+    imageSelector: ".home-about__image",
+    tiltProperty: "--about-image-tilt",
+  });
+
+  initializeSplitSection({
+    sectionSelector: "[data-home-contact-cta]",
+    revealSelector: "[data-contact-reveal]",
+    visualSelector: ".home-contact-cta__visual",
+    imageSelector: ".home-contact-cta__image",
+    tiltProperty: "--contact-image-tilt",
+  });
 
   if (menuToggle && mobileMenu) {
     menuToggle.addEventListener("click", toggleMobileMenu);
